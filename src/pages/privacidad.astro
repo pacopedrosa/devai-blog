@@ -1,0 +1,212 @@
+---
+import Page from '../layouts/Page.astro';
+
+const sections = [
+	{ id: 'responsable', title: 'Responsable del sitio' },
+	{ id: 'cookies', title: 'Cookies y publicidad' },
+	{ id: 'datos', title: 'Qué datos se recogen' },
+	{ id: 'terceros', title: 'Enlaces a terceros' },
+	{ id: 'cambios', title: 'Cambios en esta política' },
+	{ id: 'contacto', title: 'Contacto' },
+];
+---
+
+<Page
+	title="Política de Privacidad"
+	eyebrow="información legal"
+	description="Política de privacidad y uso de cookies de DevAI Blog."
+	lead="Qué datos se recogen en DevAI Blog, qué cookies se utilizan y cómo puedes controlarlas."
+>
+	<div class="notice">
+		<p class="notice-label">Borrador</p>
+		<p>
+			Esta política es un borrador inicial pendiente de revisión legal detallada antes del
+			lanzamiento del sitio.
+		</p>
+	</div>
+
+	<nav class="toc" aria-label="Índice de contenidos">
+		<p class="eyebrow">contenido</p>
+		<ol>
+			{sections.map((section) => <li><a href={`#${section.id}`}>{section.title}</a></li>)}
+		</ol>
+	</nav>
+
+	<section class="legal-section" id="responsable">
+		<h2 class="section-title">1. Responsable del sitio</h2>
+		<p>
+			DevAI Blog es un proyecto editorial personal gestionado por Paco Pedrosa. Para cualquier
+			consulta sobre esta política puedes escribir a través de la página de <a href="/contacto"
+				>contacto</a
+			>.
+		</p>
+	</section>
+
+	<section class="legal-section" id="cookies">
+		<h2 class="section-title">2. Cookies y publicidad</h2>
+		<p>
+			Este sitio utiliza cookies propias y de terceros para mejorar la experiencia de navegación y,
+			en particular, para mostrar publicidad a través de <strong>Google AdSense</strong>.
+		</p>
+		<div class="card highlight">
+			<h3>Google AdSense</h3>
+			<p>
+				Google y sus socios publicitarios pueden usar cookies y tecnologías similares para mostrar
+				anuncios en función de las visitas de un usuario a este sitio y a otros sitios web,
+				personalizar el contenido publicitario y medir su rendimiento.
+			</p>
+			<ul class="links">
+				<li>
+					<a
+						href="https://policies.google.com/technologies/partner-sites"
+						target="_blank"
+						rel="noopener">Cómo utiliza Google los datos de los sitios que usan sus servicios →</a
+					>
+				</li>
+				<li>
+					<a href="https://adssettings.google.com" target="_blank" rel="noopener"
+						>Configuración de anuncios de Google →</a
+					>
+				</li>
+			</ul>
+		</div>
+	</section>
+
+	<section class="legal-section" id="datos">
+		<h2 class="section-title">3. Qué datos se recogen</h2>
+		<p>Además de las cookies publicitarias mencionadas, este sitio puede recoger:</p>
+		<ul class="data-list">
+			<li>
+				<strong>Datos de navegación</strong> con fines estadísticos, como páginas visitadas o tiempo
+				de permanencia.
+			</li>
+			<li>
+				<strong>Los datos que envíes voluntariamente</strong> a través del correo de contacto.
+			</li>
+		</ul>
+	</section>
+
+	<section class="legal-section" id="terceros">
+		<h2 class="section-title">4. Enlaces a terceros</h2>
+		<p>
+			DevAI Blog puede incluir enlaces a sitios externos. Esta política de privacidad no cubre el
+			tratamiento de datos que dichos sitios puedan realizar de forma independiente.
+		</p>
+	</section>
+
+	<section class="legal-section" id="cambios">
+		<h2 class="section-title">5. Cambios en esta política</h2>
+		<p>
+			Esta política puede actualizarse para reflejar cambios legales o del propio sitio. Se
+			recomienda revisar esta página periódicamente.
+		</p>
+	</section>
+
+	<section class="legal-section" id="contacto">
+		<h2 class="section-title">6. Contacto</h2>
+		<p>
+			Si tienes dudas sobre esta política de privacidad, puedes escribirme desde la página de <a
+				href="/contacto">contacto</a
+			>.
+		</p>
+	</section>
+</Page>
+
+<style>
+	.notice {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: 0.75rem;
+		padding: 1rem 1.25rem;
+		border-left: 3px solid var(--accent);
+		border-radius: 0 var(--radius) var(--radius) 0;
+		background: rgba(var(--accent-rgb), 0.08);
+	}
+	.notice p {
+		margin: 0;
+		font-size: 0.95rem;
+		color: rgb(var(--gray));
+	}
+	.notice-label {
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		color: var(--accent) !important;
+	}
+	.toc {
+		margin: 2rem 0 3rem;
+		padding: 1.25rem 1.5rem;
+		border: 1px solid var(--glass-border);
+		border-radius: var(--radius-lg);
+		background: var(--glass-bg);
+	}
+	.toc ol {
+		margin: 0;
+		padding-left: 1.2rem;
+		columns: 2;
+		column-gap: 2rem;
+	}
+	.toc li {
+		margin-bottom: 0.35rem;
+		font-size: 0.95rem;
+	}
+	.toc a {
+		text-decoration: none;
+	}
+	.toc a:hover {
+		text-decoration: underline;
+	}
+	.legal-section {
+		margin-bottom: clamp(2rem, 5vw, 2.75rem);
+		scroll-margin-top: 5rem;
+	}
+	.legal-section > p,
+	.legal-section > .data-list {
+		max-width: 68ch;
+		color: rgb(var(--gray-dark));
+	}
+	.highlight {
+		margin-top: 1.25rem;
+		border-color: rgba(var(--accent-rgb), 0.35);
+	}
+	.highlight h3 {
+		margin: 0 0 0.6rem 0;
+		font-size: 1.1rem;
+	}
+	.highlight p {
+		margin: 0 0 1rem 0;
+		font-size: 0.95rem;
+		line-height: 1.6;
+		color: rgb(var(--gray));
+	}
+	.links,
+	.data-list {
+		margin: 0;
+		padding-left: 1.1rem;
+	}
+	.links {
+		list-style: none;
+		padding-left: 0;
+	}
+	.links li,
+	.data-list li {
+		margin-bottom: 0.5rem;
+		font-size: 0.95rem;
+		line-height: 1.6;
+	}
+	.links a {
+		font-family: var(--font-mono);
+		font-size: 0.85rem;
+		text-decoration: none;
+	}
+	.links a:hover {
+		text-decoration: underline;
+	}
+	@media (max-width: 560px) {
+		.toc ol {
+			columns: 1;
+		}
+	}
+</style>

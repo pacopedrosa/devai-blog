@@ -1,0 +1,247 @@
+---
+import Page from '../layouts/Page.astro';
+---
+
+<Page
+	title="Sobre mí"
+	eyebrow="quién escribe aquí"
+	description="Quién escribe DevAI Blog: desarrollo web moderno e inteligencia artificial aplicada a programación."
+	lead="Software & AI Engineer. Construyo productos de IA full-stack y escribo aquí sobre desarrollo web e IA aplicada a programación, desde la experiencia de aplicarlas en proyectos reales."
+>
+	<!-- Monograma en lugar de foto: sustitúyelo por una foto real cuando quieras. -->
+	<section class="card identity-card">
+		<span class="monogram" aria-hidden="true">PP</span>
+		<div>
+			<h2>Paco Pedrosa</h2>
+			<p class="role">Software &amp; AI Engineer · Málaga, España</p>
+			<ul class="chip-list">
+				<li class="chip">Next.js</li>
+				<li class="chip">TypeScript</li>
+				<li class="chip">Python</li>
+				<li class="chip">FastAPI</li>
+			</ul>
+		</div>
+	</section>
+
+	<section class="page-section">
+		<p class="eyebrow">a qué me dedico</p>
+		<h2 class="section-title">Productos de IA full-stack, de la investigación al producto</h2>
+		<p>
+			Construyo productos de IA full-stack: frontends en Next.js y TypeScript junto a microservicios
+			de machine learning en FastAPI y Python, orquestados con Prefect y desplegados con Docker y
+			CI/CD. Desde diciembre de 2025 trabajo como <strong>Software &amp; AI Engineer</strong> en un
+			grupo de investigación universitario especializado en IA aplicada, donde diseño plataformas
+			para agricultura digital y espacios de datos.
+		</p>
+		<p>
+			Mi especialidad es precisamente ese salto que muchos proyectos no llegan a dar: coger modelos
+			que funcionan en un cuaderno de investigación y convertirlos en sistemas que alguien puede usar
+			de verdad, con autenticación, mapas, trabajos en tiempo real, internacionalización y
+			documentación lista para operar.
+		</p>
+	</section>
+
+	<section class="page-section">
+		<p class="eyebrow">el día a día</p>
+		<h2 class="section-title">En qué trabajo</h2>
+		<div class="work-grid">
+			<article class="card">
+				<h3>Aplicaciones web</h3>
+				<p>
+					Next.js, React y TypeScript: mapas interactivos, autenticación, internacionalización ES/EN
+					y seguimiento de trabajos en tiempo real vía SSE.
+				</p>
+			</article>
+			<article class="card">
+				<h3>Microservicios de ML</h3>
+				<p>
+					Python y FastAPI, pipelines orquestados con Prefect y workers asíncronos
+					(Dramatiq/RabbitMQ), artefactos en MinIO y datos en PostgreSQL.
+				</p>
+			</article>
+			<article class="card">
+				<h3>Productos AgriTech</h3>
+				<p>
+					Predicción de rendimiento agrícola con series temporales y ensembles, análisis de estrés
+					hídrico con Sentinel-2/NDWI y modelos geoespaciales para la severidad del repilo del
+					olivo.
+				</p>
+			</article>
+			<article class="card">
+				<h3>Espacios de datos</h3>
+				<p>
+					Capa de usuario de espacios de datos: anotación semántica, matchmaking, validación SHACL y
+					gestión de vocabularios (RDF, ontologías, DCAT-AP).
+				</p>
+			</article>
+			<article class="card">
+				<h3>Del código a producción</h3>
+				<p>
+					Definición de contratos frontend-ML, despliegue con Docker y CI/CD, y documentación
+					operativa bilingüe para equipos y usuarios finales.
+				</p>
+			</article>
+		</div>
+	</section>
+
+	<section class="page-section">
+		<p class="eyebrow">herramientas</p>
+		<h2 class="section-title">Stack con el que trabajo</h2>
+		<ul class="chip-list stack-list">
+			<li class="chip">Next.js</li>
+			<li class="chip">React</li>
+			<li class="chip">TypeScript</li>
+			<li class="chip">FastAPI</li>
+			<li class="chip">Python</li>
+			<li class="chip">Prefect</li>
+			<li class="chip">scikit-learn</li>
+			<li class="chip">statsmodels</li>
+			<li class="chip">Leaflet/GeoJSON</li>
+			<li class="chip">PostgreSQL</li>
+			<li class="chip">MinIO</li>
+			<li class="chip">Docker</li>
+			<li class="chip">GitHub Actions</li>
+		</ul>
+	</section>
+
+	<section class="page-section">
+		<p class="eyebrow">por qué existe este blog</p>
+		<h2 class="section-title">Dos temas que casi nunca se cuentan juntos</h2>
+		<p>
+			En mi día a día también integro asistentes como Claude Code o GitHub Copilot en el propio flujo
+			de trabajo de programación, y de ahí sale buena parte de lo que escribo aquí.
+		</p>
+		<p>
+			Creé <strong>DevAI Blog</strong> porque no encontraba muchos sitios en español que hablaran de
+			estas dos cosas a la vez: desarrollo web serio y el uso práctico —no hype vacío— de la IA para
+			programar mejor y más rápido. Aquí escribo sobre lo que pruebo, lo que funciona y lo que no,
+			siempre desde la experiencia real de aplicarlo en proyectos propios.
+		</p>
+	</section>
+
+	<section class="page-section">
+		<p class="eyebrow">cómo escribo aquí</p>
+		<h2 class="section-title">Tres reglas que me autoimpongo</h2>
+		<div class="principles">
+			<article class="card">
+				<span class="num" aria-hidden="true">01</span>
+				<h3>Desde la experiencia real</h3>
+				<p>
+					Escribo sobre lo que he probado yo mismo en proyectos propios, incluyendo los errores por
+					el camino y cómo los resolví.
+				</p>
+			</article>
+			<article class="card">
+				<span class="num" aria-hidden="true">02</span>
+				<h3>Sin hype vacío</h3>
+				<p>
+					La IA es una herramienta útil, no magia. Cuento igual de bien lo que funciona y lo que no
+					acaba de funcionar.
+				</p>
+			</article>
+			<article class="card">
+				<span class="num" aria-hidden="true">03</span>
+				<h3>Los fundamentos primero</h3>
+				<p>
+					Sacar partido a la IA sin perder de vista el buen código, las buenas prácticas y el
+					rendimiento, que siguen importando tanto como siempre.
+				</p>
+			</article>
+		</div>
+	</section>
+
+	<section class="card contact-cta">
+		<div>
+			<h2>¿Quieres proponerme un tema?</h2>
+			<p>Escríbeme si quieres sugerir un artículo, corregirme algo o simplemente saludar.</p>
+		</div>
+		<a class="btn btn-primary" href="/contacto">Ir a contacto</a>
+	</section>
+</Page>
+
+<style>
+	.identity-card {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 1.5rem;
+	}
+	.identity-card h2 {
+		margin: 0;
+		font-size: 1.6rem;
+	}
+	.monogram {
+		display: grid;
+		place-items: center;
+		width: 4.5rem;
+		height: 4.5rem;
+		border-radius: 50%;
+		background: linear-gradient(135deg, var(--accent), var(--accent-2));
+		color: #fff;
+		font-family: var(--font-mono);
+		font-weight: 700;
+		font-size: 1.4rem;
+	}
+	.role {
+		margin: 0.15rem 0 0.9rem 0;
+		font-family: var(--font-mono);
+		font-size: 0.82rem;
+		color: var(--accent);
+	}
+	.work-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+		gap: 1.25rem;
+	}
+	.work-grid h3 {
+		margin: 0 0 0.6rem 0;
+		font-size: 1.1rem;
+	}
+	.work-grid p {
+		margin: 0;
+		font-size: 0.95rem;
+		line-height: 1.6;
+		color: rgb(var(--gray));
+	}
+	.stack-list {
+		gap: 0.6rem;
+	}
+	.principles {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+		gap: 1.25rem;
+	}
+	.principles h3 {
+		margin: 0.5rem 0;
+		font-size: 1.1rem;
+	}
+	.principles p {
+		margin: 0;
+		font-size: 0.95rem;
+		line-height: 1.6;
+		color: rgb(var(--gray));
+	}
+	.num {
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		font-weight: 700;
+		color: var(--accent);
+	}
+	.contact-cta {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.5rem;
+		margin-top: clamp(2rem, 5vw, 3rem);
+	}
+	.contact-cta h2 {
+		margin: 0 0 0.4rem 0;
+		font-size: 1.35rem;
+	}
+	.contact-cta p {
+		margin: 0;
+		color: rgb(var(--gray));
+		font-size: 0.98rem;
+	}
+</style>

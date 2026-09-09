@@ -1,0 +1,55 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+
+interface Props {
+	title: string;
+	description: string;
+	eyebrow?: string;
+	lead?: string;
+}
+
+const { title, description, eyebrow, lead } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<BaseHead title={`${title} · DevAI Blog`} description={description} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<header class="page-header">
+				{eyebrow && <p class="eyebrow">{eyebrow}</p>}
+				<h1>{title}</h1>
+				{lead && <p class="lead">{lead}</p>}
+			</header>
+			<slot />
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		width: 820px;
+	}
+	.page-header {
+		position: relative;
+		margin-bottom: clamp(2rem, 5vw, 3rem);
+		padding-bottom: 1.5rem;
+		border-bottom: 1px solid var(--glass-border);
+	}
+	.page-header h1 {
+		margin: 0;
+		font-size: clamp(2rem, 5vw, 2.9rem);
+		line-height: 1.1;
+		letter-spacing: -0.02em;
+	}
+	.page-header .lead {
+		margin: 0.75rem 0 0 0;
+		max-width: 54ch;
+	}
+</style>

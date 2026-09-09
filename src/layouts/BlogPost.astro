@@ -6,12 +6,12 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'] & { id: string };
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { id, title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="es">
 	<head>
 		<BaseHead title={title} description={description} />
 		<style>
@@ -60,7 +60,17 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		<main>
 			<article>
 				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
+					{
+						heroImage && (
+							<Image
+								width={1020}
+								height={510}
+								src={heroImage}
+								alt=""
+								transition:name={`post-image-${id}`}
+							/>
+						)
+					}
 				</div>
 				<div class="prose">
 					<div class="title">
@@ -74,7 +84,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 								)
 							}
 						</div>
-						<h1>{title}</h1>
+						<h1 transition:name={`post-title-${id}`}>{title}</h1>
 						<hr />
 					</div>
 					<slot />

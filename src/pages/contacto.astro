@@ -1,0 +1,117 @@
+---
+import Page from '../layouts/Page.astro';
+
+const contactEmail = 'pacopedrosa2018@gmail.com';
+---
+
+<Page
+	title="Contacto"
+	eyebrow="hablemos"
+	description="Cómo ponerte en contacto con DevAI Blog."
+	lead="¿Una duda, una sugerencia de tema, un error en un artículo o una propuesta de colaboración? Escríbeme."
+>
+	<section class="card email-card">
+		<p class="eyebrow">correo directo</p>
+		<a class="email" href={`mailto:${contactEmail}`}>{contactEmail}</a>
+		<div class="email-actions">
+			<a class="btn btn-primary" href={`mailto:${contactEmail}`}>Enviar un correo</a>
+			<button class="btn btn-ghost" type="button" id="copy-email" data-email={contactEmail}>
+				Copiar dirección
+			</button>
+		</div>
+	</section>
+
+	<section class="page-section">
+		<p class="eyebrow">antes de escribir</p>
+		<h2 class="section-title">Qué me ayuda a responderte mejor</h2>
+		<div class="info-grid">
+			<article class="card">
+				<h3>Sobre qué escribirme</h3>
+				<p>
+					Sugerencias de temas, dudas sobre artículos publicados o propuestas de colaboración
+					relacionadas con desarrollo web e IA aplicada a programación.
+				</p>
+			</article>
+			<article class="card">
+				<h3>Si es sobre un artículo</h3>
+				<p>
+					Indícame el título o pega el enlace del artículo en cuestión. Con esa referencia puedo
+					ayudarte mucho más rápido.
+				</p>
+			</article>
+			<article class="card">
+				<h3>Tiempo de respuesta</h3>
+				<p>
+					Intento responder a todos los correos en un plazo razonable. Si el tuyo se queda sin
+					respuesta, no dudes en insistir.
+				</p>
+			</article>
+		</div>
+	</section>
+</Page>
+
+<script>
+	function setupCopyEmail() {
+		const button = document.getElementById('copy-email');
+		if (!button || button.dataset.bound === 'true') return;
+		button.dataset.bound = 'true';
+
+		const original = button.textContent;
+		button.addEventListener('click', async () => {
+			const email = button.dataset.email ?? '';
+			try {
+				await navigator.clipboard.writeText(email);
+				button.textContent = '¡Copiada!';
+			} catch {
+				button.textContent = email;
+			}
+			setTimeout(() => {
+				button.textContent = original;
+			}, 2000);
+		});
+	}
+
+	setupCopyEmail();
+	document.addEventListener('astro:page-load', setupCopyEmail);
+</script>
+
+<style>
+	.email-card {
+		text-align: center;
+		padding: clamp(1.75rem, 5vw, 2.5rem);
+	}
+	.email {
+		display: inline-block;
+		margin-bottom: 1.5rem;
+		font-family: var(--font-mono);
+		font-size: clamp(1rem, 3.4vw, 1.5rem);
+		font-weight: 700;
+		word-break: break-all;
+		text-decoration: none;
+	}
+	.email-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		justify-content: center;
+	}
+	.email-actions .btn {
+		cursor: pointer;
+		font-family: inherit;
+	}
+	.info-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+		gap: 1.25rem;
+	}
+	.info-grid h3 {
+		margin: 0 0 0.6rem 0;
+		font-size: 1.1rem;
+	}
+	.info-grid p {
+		margin: 0;
+		font-size: 0.95rem;
+		line-height: 1.6;
+		color: rgb(var(--gray));
+	}
+</style>
