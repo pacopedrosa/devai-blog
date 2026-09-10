@@ -1,0 +1,159 @@
+---
+import type { GetStaticPaths, Page } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import PostCard from '../../components/PostCard.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+
+export const getStaticPaths = (async ({ paginate }) => {
+	const posts = (await getCollection('blog')).sort(
+		(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+	);
+	return paginate(posts, { pageSize: 9 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props as { page: Page<CollectionEntry<'blog'>> };
+
+const title = page.currentPage === 1 ? `Blog · ${SITE_TITLE}` : `Blog (página ${page.currentPage}) · ${SITE_TITLE}`;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<BaseHead title={title} description={SITE_DESCRIPTION} />
+		{page.url.prev && <link rel="prev" href={page.url.prev} />}
+		{page.url.next && <link rel="next" href={page.url.next} />}
+	</head>
+	<body>
+		<Header />
+		<main>
+			<header class="page-header">
+				<p class="eyebrow">artículos</p>
+				<h1>Todo lo publicado</h1>
+				<p class="lead">
+					Guías y notas sobre desarrollo web moderno e inteligencia artificial aplicada a
+					programación.
+				</p>
+			</header>
+			<div class="posts-grid">
+				{page.data.map((post) => <PostCard post={post} />)}
+			</div>
+			{
+				page.lastPage > 1 && (
+					<nav class="pagination" aria-label="Paginación de artículos">
+						<a
+							class="btn btn-ghost"
+							href={page.url.prev ?? '#'}
+							aria-disabled={!page.url.prev}
+							tabindex={page.url.prev ? undefined : -1}
+						>
+							← Anteriores
+						</a>
+						<ul class="page-numbers">
+							{Array.from({ length: page.lastPage }, (_, i) => i + 1).map((n) => (
+								<li>
+									{n === page.currentPage ? (
+										<span class="page-number current" aria-current="page">
+											{n}
+										</span>
+									) : (
+										<a class="page-number" href={n === 1 ? '/blog/' : `/blog/${n}/`}>
+											{n}
+										</a>
+									)}
+								</li>
+							))}
+						</ul>
+						<a
+							class="btn btn-ghost"
+							href={page.url.next ?? '#'}
+							aria-disabled={!page.url.next}
+							tabindex={page.url.next ? undefined : -1}
+						>
+							Siguientes →
+						</a>
+					</nav>
+				)
+			}
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		width: var(--wide-width);
+	}
+	.page-header {
+		margin-bottom: clamp(2rem, 5vw, 3rem);
+		padding-bottom: 1.5rem;
+		border-bottom: 1px solid var(--glass-border);
+	}
+	.page-header h1 {
+		margin: 0;
+		font-size: clamp(2rem, 5vw, 2.9rem);
+		line-height: 1.1;
+		letter-spacing: -0.02em;
+	}
+	.page-header .lead {
+		margin: 0.75rem 0 0 0;
+		max-width: 54ch;
+	}
+	.posts-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+		gap: 1.5rem;
+	}
+	.pagination {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		flex-wrap: wrap;
+		margin-top: clamp(2.5rem, 6vw, 3.5rem);
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--glass-border);
+	}
+	.pagination a[aria-disabled='true'] {
+		opacity: 0.4;
+		pointer-events: none;
+	}
+	.page-numbers {
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		font-family: var(--font-mono);
+	}
+	.page-number {
+		display: grid;
+		place-items: center;
+		width: 2.2rem;
+		height: 2.2rem;
+		border-radius: 999px;
+		border: 1px solid transparent;
+		color: rgb(var(--gray));
+		text-decoration: none;
+		font-size: 0.9rem;
+		transition: border-color 0.15s ease, color 0.15s ease;
+	}
+	.page-number:hover {
+		border-color: var(--glass-border);
+		color: rgb(var(--black));
+	}
+	.page-number.current {
+		border-color: var(--accent);
+		color: var(--accent);
+		font-weight: 700;
+	}
+	@media (max-width: 540px) {
+		.pagination {
+			justify-content: center;
+		}
+	}
+</style>
