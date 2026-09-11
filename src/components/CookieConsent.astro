@@ -67,12 +67,18 @@
 		} catch {
 			/* localStorage unavailable (privacy mode, etc.) */
 		}
+		// Tell Google Consent Mode (set up in BaseHead.astro) whether AdSense can use
+		// advertising cookies / personalization for this visitor.
+		const state = advertising ? 'granted' : 'denied';
+		window.gtag?.('consent', 'update', {
+			ad_storage: state,
+			ad_user_data: state,
+			ad_personalization: state,
+		});
 		window.dispatchEvent(new CustomEvent('cookieconsentchange', { detail: consent }));
 		return consent;
 	}
 
-	// Exposed so a future ad-loading script can gate itself:
-	// const consent = window.getCookieConsent(); if (consent?.advertising) { ...load AdSense... }
 	window.getCookieConsent = readConsent;
 
 	function setupCookieConsent() {

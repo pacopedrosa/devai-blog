@@ -4,7 +4,7 @@
 import '../styles/global.css';
 import type { ImageMetadata } from 'astro';
 import FallbackImage from '../assets/blog-placeholder-1.jpg';
-import { SITE_TITLE } from '../consts';
+import { ADSENSE_CLIENT_ID, SITE_TITLE } from '../consts';
 import { Font } from 'astro:assets';
 import { ClientRouter } from 'astro:transitions';
 
@@ -46,6 +46,45 @@ const { title, description, image = FallbackImage } = Astro.props;
 
 <!-- Native View Transitions between pages (no client JS framework involved) -->
 <ClientRouter />
+
+<!-- Google Consent Mode: ads start denied by default and are only granted once the
+     visitor accepts advertising cookies in the site's own cookie banner (see
+     CookieConsent.astro). This must run before the AdSense loader below. -->
+<script is:inline>
+	(function () {
+		window.dataLayer = window.dataLayer || [];
+		function gtag() {
+			window.dataLayer.push(arguments);
+		}
+		window.gtag = gtag;
+		gtag('consent', 'default', {
+			ad_storage: 'denied',
+			ad_user_data: 'denied',
+			ad_personalization: 'denied',
+			analytics_storage: 'denied',
+		});
+		try {
+			const raw = localStorage.getItem('cookie-consent-v1');
+			const consent = raw ? JSON.parse(raw) : null;
+			if (consent && consent.advertising) {
+				gtag('consent', 'update', {
+					ad_storage: 'granted',
+					ad_user_data: 'granted',
+					ad_personalization: 'granted',
+				});
+			}
+		} catch (_) {
+			/* localStorage unavailable (privacy mode, etc.) — consent stays denied */
+		}
+	})();
+</script>
+
+<!-- Google AdSense -->
+<script
+	is:inline
+	async
+	src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
+	crossorigin="anonymous"></script>
 
 <!-- Apply the persisted theme (dark by default) before first paint to avoid a flash,
      and reapply it after every view-transition swap since <html> attributes can be replaced. -->
