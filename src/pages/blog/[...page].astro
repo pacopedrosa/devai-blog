@@ -6,7 +6,7 @@ import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import PostCard from '../../components/PostCard.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import { SITE_TITLE } from '../../consts';
 
 export const getStaticPaths = (async ({ paginate }) => {
 	const posts = (await getCollection('blog')).sort(
@@ -18,12 +18,16 @@ export const getStaticPaths = (async ({ paginate }) => {
 const { page } = Astro.props as { page: Page<CollectionEntry<'blog'>> };
 
 const title = page.currentPage === 1 ? `Blog · ${SITE_TITLE}` : `Blog (página ${page.currentPage}) · ${SITE_TITLE}`;
+const description =
+	page.currentPage === 1
+		? 'Todos los artículos publicados en DevAI Blog: guías de desarrollo web moderno con React, Next.js y Astro, e IA aplicada a programación.'
+		: `Página ${page.currentPage} del listado de artículos de DevAI Blog: desarrollo web moderno e IA aplicada a programación.`;
 ---
 
 <!doctype html>
 <html lang="es">
 	<head>
-		<BaseHead title={title} description={SITE_DESCRIPTION} />
+		<BaseHead title={title} description={description} />
 		{page.url.prev && <link rel="prev" href={page.url.prev} />}
 		{page.url.next && <link rel="next" href={page.url.next} />}
 	</head>

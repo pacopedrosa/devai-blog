@@ -2,28 +2,32 @@
 import Page from '../layouts/Page.astro';
 
 const sections = [
-	{ id: 'responsable', title: 'Responsable del sitio' },
+	{ id: 'responsable', title: 'Responsable del tratamiento' },
+	{ id: 'finalidad', title: 'Finalidad y legitimación' },
 	{ id: 'cookies', title: 'Cookies y publicidad' },
-	{ id: 'datos', title: 'Qué datos se recogen' },
+	{ id: 'destinatarios', title: 'Destinatarios y transferencias' },
+	{ id: 'conservacion', title: 'Plazo de conservación' },
+	{ id: 'derechos', title: 'Tus derechos' },
 	{ id: 'terceros', title: 'Enlaces a terceros' },
+	{ id: 'menores', title: 'Menores de edad' },
 	{ id: 'cambios', title: 'Cambios en esta política' },
 	{ id: 'contacto', title: 'Contacto' },
 ];
+
+const lastUpdated = new Date('2026-09-11').toLocaleDateString('es-ES', {
+	year: 'numeric',
+	month: 'long',
+	day: 'numeric',
+});
 ---
 
 <Page
 	title="Política de Privacidad"
 	eyebrow="información legal"
 	description="Política de privacidad y uso de cookies de DevAI Blog."
-	lead="Qué datos se recogen en DevAI Blog, qué cookies se utilizan y cómo puedes controlarlas."
+	lead="Qué datos se recogen en DevAI Blog, con qué finalidad, qué cookies se utilizan y cómo puedes ejercer tus derechos."
 >
-	<div class="notice">
-		<p class="notice-label">Borrador</p>
-		<p>
-			Esta política es un borrador inicial pendiente de revisión legal detallada antes del
-			lanzamiento del sitio.
-		</p>
-	</div>
+	<p class="updated">Última actualización: {lastUpdated}</p>
 
 	<nav class="toc" aria-label="Índice de contenidos">
 		<p class="eyebrow">contenido</p>
@@ -33,21 +37,62 @@ const sections = [
 	</nav>
 
 	<section class="legal-section" id="responsable">
-		<h2 class="section-title">1. Responsable del sitio</h2>
+		<h2 class="section-title">1. Responsable del tratamiento</h2>
+		<ul class="data-list">
+			<li><strong>Titular:</strong> Paco Pedrosa Arjona, persona física.</li>
+			<li><strong>Sitio web:</strong> DevAI Blog (devai-blog.netlify.app).</li>
+			<li>
+				<strong>Contacto:</strong> <a href="mailto:pacopedrosa2018@gmail.com"
+					>pacopedrosa2018@gmail.com</a
+				> o a través de la página de <a href="/contacto">contacto</a>.
+			</li>
+		</ul>
 		<p>
-			DevAI Blog es un proyecto editorial personal gestionado por Paco Pedrosa. Para cualquier
-			consulta sobre esta política puedes escribir a través de la página de <a href="/contacto"
-				>contacto</a
-			>.
+			DevAI Blog es un proyecto editorial personal, sin forma de sociedad mercantil. Esta política
+			describe cómo se tratan los datos de quienes visitan el sitio o se ponen en contacto conmigo.
 		</p>
 	</section>
 
+	<section class="legal-section" id="finalidad">
+		<h2 class="section-title">2. Finalidad y legitimación del tratamiento</h2>
+		<ul class="data-list">
+			<li>
+				<strong>Atender consultas de contacto.</strong> Cuando escribes a través del correo o el formulario
+				de <a href="/contacto">contacto</a>, uso los datos que me facilitas (email y contenido del
+				mensaje) únicamente para responderte. Base legal: consentimiento del usuario al enviar el
+				mensaje (art. 6.1.a RGPD).
+			</li>
+			<li>
+				<strong>Publicidad personalizada mediante Google AdSense.</strong> Muestro anuncios gestionados
+				por Google, que puede utilizar cookies para personalizarlos según tu actividad de navegación.
+				Base legal: tu consentimiento, que puedes gestionar en cualquier momento (ver sección de
+				cookies).
+			</li>
+			<li>
+				<strong>Funcionamiento técnico del sitio.</strong> El alojamiento (Netlify) procesa datos técnicos
+				básicos (como la dirección IP) para poder servir las páginas. Base legal: interés legítimo en
+				que el sitio funcione correctamente.
+			</li>
+		</ul>
+	</section>
+
 	<section class="legal-section" id="cookies">
-		<h2 class="section-title">2. Cookies y publicidad</h2>
+		<h2 class="section-title">3. Cookies y publicidad</h2>
 		<p>
-			Este sitio utiliza cookies propias y de terceros para mejorar la experiencia de navegación y,
-			en particular, para mostrar publicidad a través de <strong>Google AdSense</strong>.
+			Una cookie es un pequeño archivo que se guarda en tu navegador. Este sitio utiliza los
+			siguientes tipos:
 		</p>
+		<ul class="data-list">
+			<li>
+				<strong>Cookies técnicas necesarias:</strong> imprescindibles para que el sitio funcione (por
+				ejemplo, recordar preferencias básicas). No requieren consentimiento.
+			</li>
+			<li>
+				<strong>Cookies de publicidad (Google AdSense):</strong> se usan para mostrar anuncios y, si
+				las aceptas, personalizarlos según tu navegación en este y otros sitios. Requieren tu
+				consentimiento previo.
+			</li>
+		</ul>
 		<div class="card highlight">
 			<h3>Google AdSense</h3>
 			<p>
@@ -64,46 +109,110 @@ const sections = [
 					>
 				</li>
 				<li>
+					<a href="https://policies.google.com/privacy" target="_blank" rel="noopener"
+						>Política de privacidad de Google →</a
+					>
+				</li>
+				<li>
 					<a href="https://adssettings.google.com" target="_blank" rel="noopener"
-						>Configuración de anuncios de Google →</a
+						>Configuración de anuncios de Google (para gestionar o desactivar la personalización) →</a
 					>
 				</li>
 			</ul>
 		</div>
+		<p>
+			También puedes bloquear o eliminar las cookies desde la configuración de tu navegador en
+			cualquier momento; ten en cuenta que hacerlo puede afectar a la visualización de anuncios,
+			pero no al acceso al contenido del blog.
+		</p>
 	</section>
 
-	<section class="legal-section" id="datos">
-		<h2 class="section-title">3. Qué datos se recogen</h2>
-		<p>Además de las cookies publicitarias mencionadas, este sitio puede recoger:</p>
+	<section class="legal-section" id="destinatarios">
+		<h2 class="section-title">4. Destinatarios y transferencias internacionales</h2>
+		<p>
+			No vendo ni cedo tus datos a terceros con fines distintos a los descritos aquí. Los únicos
+			terceros que intervienen son proveedores necesarios para el funcionamiento del sitio y su
+			financiación:
+		</p>
+		<ul class="data-list">
+			<li><strong>Google LLC</strong> (Google AdSense), para la gestión de la publicidad.</li>
+			<li><strong>Netlify, Inc.</strong>, como proveedor de alojamiento del sitio.</li>
+		</ul>
+		<p>
+			Ambos proveedores tienen sede en Estados Unidos y pueden implicar una transferencia
+			internacional de datos fuera del Espacio Económico Europeo. Estas transferencias se realizan
+			bajo las garantías previstas por el RGPD, como las Cláusulas Contractuales Tipo o la
+			adhesión al Data Privacy Framework UE-EE.UU., según corresponda al proveedor.
+		</p>
+	</section>
+
+	<section class="legal-section" id="conservacion">
+		<h2 class="section-title">5. Plazo de conservación</h2>
 		<ul class="data-list">
 			<li>
-				<strong>Datos de navegación</strong> con fines estadísticos, como páginas visitadas o tiempo
-				de permanencia.
+				Los mensajes de contacto se conservan solo el tiempo necesario para atender tu consulta y,
+				como máximo, mientras no solicites su supresión.
 			</li>
 			<li>
-				<strong>Los datos que envíes voluntariamente</strong> a través del correo de contacto.
+				Las cookies de publicidad se conservan según el plazo definido por Google, que puedes
+				consultar y modificar en su <a
+					href="https://adssettings.google.com"
+					target="_blank"
+					rel="noopener">configuración de anuncios</a
+				>.
 			</li>
 		</ul>
 	</section>
 
+	<section class="legal-section" id="derechos">
+		<h2 class="section-title">6. Tus derechos</h2>
+		<p>De acuerdo con el RGPD y la LOPDGDD, tienes derecho a:</p>
+		<ul class="data-list">
+			<li><strong>Acceder</strong> a tus datos personales.</li>
+			<li><strong>Rectificar</strong> datos inexactos.</li>
+			<li><strong>Suprimir</strong> tus datos cuando ya no sean necesarios.</li>
+			<li><strong>Limitar u oponerte</strong> al tratamiento en determinadas circunstancias.</li>
+			<li><strong>Portabilidad</strong> de tus datos, cuando aplique.</li>
+		</ul>
+		<p>
+			Puedes ejercer estos derechos escribiendo a <a href="mailto:pacopedrosa2018@gmail.com"
+				>pacopedrosa2018@gmail.com</a
+			>. Si consideras que tus derechos no han sido atendidos correctamente, puedes presentar una
+			reclamación ante la <a href="https://www.aepd.es" target="_blank" rel="noopener"
+				>Agencia Española de Protección de Datos (AEPD)</a
+			>.
+		</p>
+	</section>
+
 	<section class="legal-section" id="terceros">
-		<h2 class="section-title">4. Enlaces a terceros</h2>
+		<h2 class="section-title">7. Enlaces a terceros</h2>
 		<p>
 			DevAI Blog puede incluir enlaces a sitios externos. Esta política de privacidad no cubre el
-			tratamiento de datos que dichos sitios puedan realizar de forma independiente.
+			tratamiento de datos que dichos sitios puedan realizar de forma independiente; te
+			recomendamos revisar sus propias políticas de privacidad.
+		</p>
+	</section>
+
+	<section class="legal-section" id="menores">
+		<h2 class="section-title">8. Menores de edad</h2>
+		<p>
+			DevAI Blog es un sitio de contenido técnico dirigido a un público general y no está
+			específicamente orientado a menores de edad. No solicitamos ni recogemos conscientemente
+			datos de menores de 14 años.
 		</p>
 	</section>
 
 	<section class="legal-section" id="cambios">
-		<h2 class="section-title">5. Cambios en esta política</h2>
+		<h2 class="section-title">9. Cambios en esta política</h2>
 		<p>
-			Esta política puede actualizarse para reflejar cambios legales o del propio sitio. Se
-			recomienda revisar esta página periódicamente.
+			Esta política puede actualizarse para reflejar cambios legales, técnicos o del propio sitio
+			(por ejemplo, si se incorpora una herramienta de analítica). La fecha de última
+			actualización, indicada al inicio de esta página, refleja la versión vigente.
 		</p>
 	</section>
 
 	<section class="legal-section" id="contacto">
-		<h2 class="section-title">6. Contacto</h2>
+		<h2 class="section-title">10. Contacto</h2>
 		<p>
 			Si tienes dudas sobre esta política de privacidad, puedes escribirme desde la página de <a
 				href="/contacto">contacto</a
@@ -113,27 +222,11 @@ const sections = [
 </Page>
 
 <style>
-	.notice {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: baseline;
-		gap: 0.75rem;
-		padding: 1rem 1.25rem;
-		border-left: 3px solid var(--accent);
-		border-radius: 0 var(--radius) var(--radius) 0;
-		background: rgba(var(--accent-rgb), 0.08);
-	}
-	.notice p {
-		margin: 0;
-		font-size: 0.95rem;
-		color: rgb(var(--gray));
-	}
-	.notice-label {
+	.updated {
+		margin: -1rem 0 2rem;
 		font-family: var(--font-mono);
-		font-size: 0.72rem;
-		text-transform: uppercase;
-		letter-spacing: 0.12em;
-		color: var(--accent) !important;
+		font-size: 0.82rem;
+		color: rgb(var(--gray));
 	}
 	.toc {
 		margin: 2rem 0 3rem;
@@ -183,7 +276,7 @@ const sections = [
 	}
 	.links,
 	.data-list {
-		margin: 0;
+		margin: 0 0 1rem 0;
 		padding-left: 1.1rem;
 	}
 	.links {

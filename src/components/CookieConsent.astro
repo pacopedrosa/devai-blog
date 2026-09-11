@@ -1,0 +1,228 @@
+---
+---
+
+<div
+	id="cookie-consent"
+	class="cookie-consent"
+	hidden
+	role="dialog"
+	aria-live="polite"
+	aria-label="Preferencias de cookies"
+>
+	<div class="cookie-consent-inner">
+		<p class="cookie-text">
+			Usamos cookies técnicas necesarias para el funcionamiento del sitio y, si lo aceptas,
+			cookies de publicidad (Google AdSense) para mostrar anuncios personalizados. Puedes cambiar
+			tu decisión cuando quieras desde "Preferencias de cookies" en el pie de página. Más
+			información en la <a href="/privacidad">política de privacidad</a>.
+		</p>
+		<div class="cookie-actions">
+			<button type="button" class="btn btn-ghost" id="cookie-reject">Rechazar</button>
+			<button type="button" class="btn btn-ghost" id="cookie-customize">Personalizar</button>
+			<button type="button" class="btn btn-primary" id="cookie-accept">Aceptar todo</button>
+		</div>
+	</div>
+
+	<div class="cookie-panel" id="cookie-panel" hidden>
+		<div class="cookie-option">
+			<div>
+				<p class="cookie-option-title">Necesarias</p>
+				<p class="cookie-option-desc">
+					Imprescindibles para que el sitio funcione. Siempre activas.
+				</p>
+			</div>
+			<input type="checkbox" checked disabled aria-label="Cookies necesarias (siempre activas)" />
+		</div>
+		<div class="cookie-option">
+			<div>
+				<p class="cookie-option-title">Publicidad (Google AdSense)</p>
+				<p class="cookie-option-desc">
+					Permiten mostrar anuncios personalizados según tu navegación.
+				</p>
+			</div>
+			<input type="checkbox" id="cookie-advertising-toggle" aria-label="Cookies de publicidad" />
+		</div>
+		<div class="cookie-panel-actions">
+			<button type="button" class="btn btn-primary" id="cookie-save">Guardar preferencias</button>
+		</div>
+	</div>
+</div>
+
+<script>
+	const STORAGE_KEY = 'cookie-consent-v1';
+
+	function readConsent() {
+		try {
+			const raw = localStorage.getItem(STORAGE_KEY);
+			return raw ? JSON.parse(raw) : null;
+		} catch {
+			return null;
+		}
+	}
+
+	function writeConsent(advertising: boolean) {
+		const consent = { necessary: true, advertising, timestamp: new Date().toISOString() };
+		try {
+			localStorage.setItem(STORAGE_KEY, JSON.stringify(consent));
+		} catch {
+			/* localStorage unavailable (privacy mode, etc.) */
+		}
+		window.dispatchEvent(new CustomEvent('cookieconsentchange', { detail: consent }));
+		return consent;
+	}
+
+	// Exposed so a future ad-loading script can gate itself:
+	// const consent = window.getCookieConsent(); if (consent?.advertising) { ...load AdSense... }
+	window.getCookieConsent = readConsent;
+
+	function setupCookieConsent() {
+		const banner = document.getElementById('cookie-consent');
+		if (!banner || banner.dataset.bound === 'true') return;
+		banner.dataset.bound = 'true';
+
+		const panel = document.getElementById('cookie-panel') as HTMLElement | null;
+		const advertisingToggle = document.getElementById(
+			'cookie-advertising-toggle'
+		) as HTMLInputElement | null;
+		const acceptBtn = document.getElementById('cookie-accept');
+		const rejectBtn = document.getElementById('cookie-reject');
+		const customizeBtn = document.getElementById('cookie-customize');
+		const saveBtn = document.getElementById('cookie-save');
+
+		function show() {
+			if (banner) banner.hidden = false;
+		}
+		function hide() {
+			if (banner) banner.hidden = true;
+			if (panel) panel.hidden = true;
+		}
+
+		const existing = readConsent();
+		if (!existing) {
+			show();
+		} else if (advertisingToggle) {
+			advertisingToggle.checked = !!existing.advertising;
+		}
+
+		acceptBtn?.addEventListener('click', () => {
+			writeConsent(true);
+			hide();
+		});
+		rejectBtn?.addEventListener('click', () => {
+			writeConsent(false);
+			hide();
+		});
+		customizeBtn?.addEventListener('click', () => {
+			if (panel) panel.hidden = !panel.hidden;
+		});
+		saveBtn?.addEventListener('click', () => {
+			writeConsent(!!advertisingToggle?.checked);
+			hide();
+		});
+
+		window.openCookiePreferences = () => {
+			const current = readConsent();
+			if (advertisingToggle) advertisingToggle.checked = !!current?.advertising;
+			if (panel) panel.hidden = false;
+			show();
+		};
+	}
+
+	setupCookieConsent();
+	document.addEventListener('astro:page-load', setupCookieConsent);
+</script>
+
+<style>
+	.cookie-consent {
+		position: fixed;
+		left: 1rem;
+		right: 1rem;
+		bottom: 1rem;
+		z-index: 200;
+		max-width: 760px;
+		max-height: calc(100vh - 2rem);
+		overflow-y: auto;
+		margin: 0 auto;
+		padding: 1.25rem;
+		border: 1px solid var(--glass-border);
+		border-radius: var(--radius-lg);
+		background: var(--glass-bg);
+		backdrop-filter: blur(14px);
+		-webkit-backdrop-filter: blur(14px);
+		box-shadow: var(--box-shadow);
+	}
+	.cookie-consent-inner {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 1rem;
+	}
+	.cookie-text {
+		flex: 1 1 320px;
+		margin: 0;
+		font-size: 0.9rem;
+		line-height: 1.6;
+		color: rgb(var(--gray-dark));
+	}
+	.cookie-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+	}
+	.cookie-actions .btn {
+		cursor: pointer;
+		font-family: inherit;
+		white-space: nowrap;
+	}
+	.cookie-panel {
+		margin-top: 1rem;
+		padding-top: 1rem;
+		border-top: 1px solid var(--glass-border);
+	}
+	.cookie-option {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 0.6rem 0;
+	}
+	.cookie-option-title {
+		margin: 0;
+		font-size: 0.92rem;
+		font-weight: 700;
+	}
+	.cookie-option-desc {
+		margin: 0.15rem 0 0 0;
+		font-size: 0.85rem;
+		color: rgb(var(--gray));
+	}
+	.cookie-option input[type='checkbox'] {
+		flex-shrink: 0;
+		width: 1.15rem;
+		height: 1.15rem;
+		accent-color: var(--accent);
+	}
+	.cookie-panel-actions {
+		display: flex;
+		justify-content: flex-end;
+		margin-top: 0.5rem;
+	}
+	.cookie-panel-actions .btn {
+		cursor: pointer;
+		font-family: inherit;
+	}
+	@media (max-width: 560px) {
+		.cookie-consent {
+			left: 0.5rem;
+			right: 0.5rem;
+			bottom: 0.5rem;
+			padding: 1rem;
+		}
+		.cookie-actions {
+			width: 100%;
+		}
+		.cookie-actions .btn {
+			flex: 1 1 auto;
+		}
+	}
+</style>
